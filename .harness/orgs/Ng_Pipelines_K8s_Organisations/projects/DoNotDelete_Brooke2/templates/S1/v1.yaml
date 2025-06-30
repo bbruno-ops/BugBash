@@ -1,0 +1,20 @@
+template:
+  name: S1
+  identifier: S1
+  versionLabel: v1
+  type: Stage
+  projectIdentifier: DoNotDelete_Brooke2
+  orgIdentifier: Ng_Pipelines_K8s_Organisations
+  tags: {}
+  spec:
+    type: Custom
+    spec:
+      execution:
+        steps:
+          - stepGroup:
+              name: StepGroup
+              identifier: StepGroup
+              template:
+                templateRef: remoteStepGroup
+                versionLabel: v1
+                gitBranch: nonDefaultBranch
