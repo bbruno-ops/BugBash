@@ -1,0 +1,91 @@
+template:
+  name: SerEnvReqInputRemote
+  type: Stage
+  projectIdentifier: DoNotDelete_Brooke
+  orgIdentifier: default
+  tags: {}
+  spec:
+    type: Deployment
+    spec:
+      deploymentType: Kubernetes
+      environment:
+        environmentRef: env1
+        environmentInputs:
+          identifier: env1
+          type: PreProduction
+          variables:
+            - name: var1
+              type: String
+              value: <+input>
+              description: "Description for Environment "
+              required: true
+            - name: var2
+              type: String
+              value: <+input>
+              required: true
+            - name: var3
+              type: String
+              value: <+input>
+              description: optional
+            - name: var4
+              type: String
+              value: <+input>
+        deployToAll: false
+        infrastructureDefinitions:
+          - identifier: Infra1
+      service:
+        serviceRef: svc1
+        serviceInputs:
+          serviceDefinition:
+            type: Kubernetes
+            spec:
+              variables:
+                - name: var1
+                  type: String
+                  description: This runtime input is using an expression.
+                  required: true
+                  value: <+input>.default(def1)
+                - name: var2
+                  type: String
+                  required: true
+                  value: <+input>
+                - name: var3
+                  type: String
+                  description: Test
+                  required: true
+                  value: <+input>
+                - name: var4
+                  type: String
+                  value: <+input>
+      execution:
+        steps:
+          - step:
+              type: ShellScript
+              name: ShellScript_1
+              identifier: ShellScript_1
+              spec:
+                shell: Bash
+                executionTarget: {}
+                source:
+                  type: Inline
+                  spec:
+                    script: echo 'hi'
+                environmentVariables: []
+                outputVariables: []
+              timeout: 10m
+        rollbackSteps:
+          - step:
+              name: Rollback Rollout Deployment
+              identifier: rollbackRolloutDeployment
+              type: K8sRollingRollback
+              timeout: 10m
+              spec:
+                pruningEnabled: false
+    failureStrategies:
+      - onFailure:
+          errors:
+            - AllErrors
+          action:
+            type: StageRollback
+  identifier: SerEnvReqInputRemote
+  versionLabel: v1
