@@ -3,3 +3,27 @@ service:
   identifier: remoteService
   orgIdentifier: default
   projectIdentifier: DoNotDelete_Brooke
+  serviceDefinition:
+    spec:
+      variables:
+        - name: var1
+          type: String
+          description: ""
+          required: true
+          value: <+input>
+        - name: var2
+          type: String
+          description: test
+          required: true
+          value: <+input>
+        - name: var3
+          type: String
+          description: gbhdbhy
+          required: false
+          value: <+input>
+        - name: var4
+          type: String
+          description: ""
+          required: false
+          value: <+input>
+    type: Kubernetes
