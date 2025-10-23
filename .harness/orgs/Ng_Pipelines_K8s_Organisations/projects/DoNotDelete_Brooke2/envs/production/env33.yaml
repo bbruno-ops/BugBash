@@ -1,0 +1,6 @@
+environment:
+  name: env33
+  identifier: env33
+  orgIdentifier: Ng_Pipelines_K8s_Organisations
+  projectIdentifier: DoNotDelete_Brooke2
+  type: Production
