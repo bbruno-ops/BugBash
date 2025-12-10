@@ -46,20 +46,29 @@ pipeline:
                   variables:
                     - name: var1
                       type: String
-                      value: <+input>
+                      value: ""
                       description: "Description for Environment "
                       required: true
                     - name: var2
                       type: String
-                      value: <+input>
+                      value: ""
                       required: true
+                      description: ""
                     - name: var3
                       type: String
-                      value: <+input>
+                      value: ""
                       description: optional
+                      required: false
                     - name: var4
                       type: String
-                      value: <+input>
+                      value: ""
+                      description: ""
+                      required: false
+                    - name: var5
+                      type: String
+                      value: ""
+                      required: true
+                      description: ""
                 deployToAll: true
                 infrastructureDefinitions: <+input>
               - environmentRef: env2
