@@ -1,0 +1,98 @@
+pipeline:
+  tags: {}
+  projectIdentifier: DoNotDelete_Brooke
+  orgIdentifier: default
+  stages:
+    - stage:
+        name: First
+        identifier: First
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: Wait
+                  name: W
+                  identifier: W
+                  spec:
+                    duration: 10s
+        tags: {}
+        dependsOn: []
+    - stage:
+        name: Second
+        identifier: Second
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: Wait
+                  name: W
+                  identifier: W
+                  spec:
+                    duration: 10s
+        tags: {}
+        dependsOn:
+          - First
+    - stage:
+        name: Third
+        identifier: Third
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: Wait
+                  name: W
+                  identifier: W
+                  spec:
+                    duration: 10s
+              - step:
+                  type: ShellScript
+                  name: ShellScript_1
+                  identifier: ShellScript_1
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: exit 1
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+        tags: {}
+        dependsOn:
+          - Second
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: Retry
+                spec:
+                  retryCount: 4
+                  retryIntervals:
+                    - 30s
+                  onRetryFailure:
+                    action:
+                      type: MarkAsSuccess
+    - stage:
+        name: four
+        identifier: four
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: Wait
+                  name: Wait_1
+                  identifier: Wait_1
+                  spec:
+                    duration: 1m
+        tags: {}
+        dependsOn:
+          - Third
+  identifier: Dag_AuditTrial2_Remote
+  name: Dag AuditTrial2 - Remote
