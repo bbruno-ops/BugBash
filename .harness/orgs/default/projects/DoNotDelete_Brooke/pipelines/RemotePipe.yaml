@@ -30,7 +30,7 @@ pipeline:
                   name: W
                   identifier: W
                   spec:
-                    duration: 10s
+                    duration: 20s
         tags: {}
         dependsOn:
           - First
