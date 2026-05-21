@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Values.name}}-deployment
+  labels:
+    app: {{.Values.name}}
+    harness.io/release-name: {{.Values.name}}
+spec:
+  replicas: {{.Values.replicas}}
+  selector:
+    matchLabels:
+      app: {{.Values.name}}
+  template:
+    metadata:
+      labels:
+        app: {{.Values.name}}
+    spec:
+      containers:
+        - name: {{.Values.name}}
+          image: {{.Values.image}}
+          ports:
+            - containerPort: 80
+          env:
+            - name: APP_VERSION
+              value: "{{.Values.image}}"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{.Values.name}}-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: {{.Values.name}}
+  ports:
+    - port: 80
+      targetPort: 80
